@@ -99,7 +99,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
 					if (!output.CharacterMap.Contains(glyph.Character))
 						output.CharacterMap.Add(glyph.Character);
 				    var rectangle = new Rectangle(glyph.Subrect.X, glyph.Subrect.Y, glyph.Subrect.Width, glyph.Subrect.Height);
-				    var cropRect = new Rectangle(0, (int)(glyph.YOffset + glyphs.Select(x => x.YOffset).Max()), glyph.Subrect.Width, glyph.Subrect.Height);
+                    var cropRect = new Rectangle(0, (int)(glyphs.Select(x => x.Subrect.Height).Max() * 0.8f + glyph.YOffset), glyph.Subrect.Width, glyph.Subrect.Height);
 				    output.Glyphs.Add(rectangle);
 				    output.Cropping.Add(cropRect);
                     g.DrawRectangle(new Pen(System.Drawing.Color.Red), new System.Drawing.Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
