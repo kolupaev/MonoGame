@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Security.AccessControl;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 using System.Linq;
 using SharpFont;
@@ -91,18 +92,26 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
 				lineSpacing += input.Spacing;
 				output.VerticalLineSpacing = (int)lineSpacing;
 
+			    var g = System.Drawing.Graphics.FromImage(outputBitmap);
 				foreach (Glyph glyph in glyphs)
 				{
 					glyph.XAdvance += input.Spacing;
 					if (!output.CharacterMap.Contains(glyph.Character))
 						output.CharacterMap.Add(glyph.Character);
-					output.Glyphs.Add(new Rectangle(glyph.Subrect.X, glyph.Subrect.Y, glyph.Subrect.Width, glyph.Subrect.Height));
-                    output.Cropping.Add(new Rectangle(0, (int)(glyph.YOffset + glyphs.Select(x => x.YOffset).Max()), glyph.Subrect.Width, glyph.Subrect.Height));
-					ABCFloat abc = glyph.CharacterWidths;
+				    var rectangle = new Rectangle(glyph.Subrect.X, glyph.Subrect.Y, glyph.Subrect.Width, glyph.Subrect.Height);
+				    var cropRect = new Rectangle(0, (int)(glyph.YOffset + glyphs.Select(x => x.YOffset).Max()), glyph.Subrect.Width, glyph.Subrect.Height);
+				    output.Glyphs.Add(rectangle);
+				    output.Cropping.Add(cropRect);
+                    g.DrawRectangle(new Pen(System.Drawing.Color.Red), new System.Drawing.Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
+                    g.DrawRectangle(new Pen(System.Drawing.Color.SaddleBrown), new System.Drawing.Rectangle(rectangle.X + cropRect.X, rectangle.Y + cropRect.Y, cropRect.Width, cropRect.Height));
+                    
+                    ABCFloat abc = glyph.CharacterWidths;
 					output.Kerning.Add(new Vector3(abc.A, abc.B, abc.C));
 				}
 
-//				outputBitmap.Save("/Users/Jimmy/Desktop/Cocos2D-XNAImages/test.png");
+                g.Dispose();
+
+				outputBitmap.Save("c:/temp/test.png");
 				output.Texture._bitmap = outputBitmap;
 
 				var bitmapContent = new PixelBitmapContent<Color>(outputBitmap.Width, outputBitmap.Height);
