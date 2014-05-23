@@ -57,8 +57,9 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
 					LineSpacing = 0;
 					foreach (var glyph in Glyphs) 
 					{
-						LineSpacing = (glyph.Subrect.Height > LineSpacing) ? glyph.Subrect.Height : LineSpacing;
+                        LineSpacing = (glyph.Subrect.Height > LineSpacing) ? glyph.Subrect.Height : LineSpacing;
 					}
+                    LineSpacing = LineSpacing * 1.35f;
 				}
 			} finally {
 				if (face != null)
