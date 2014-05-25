@@ -23,6 +23,13 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
     [ContentProcessor(DisplayName = "Sprite Font Description - MonoGame")]
     public class FontDescriptionProcessor : ContentProcessor<FontDescription, SpriteFontContent>
     {
+        private bool _compressFont = true;
+
+        public bool CompressFont
+        {
+            get { return _compressFont; }
+            set { _compressFont = value; }
+        }
 
         public override SpriteFontContent Process(FontDescription input,
             ContentProcessorContext context)
@@ -98,10 +105,10 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
 					glyph.XAdvance += input.Spacing;
 					if (!output.CharacterMap.Contains(glyph.Character))
 						output.CharacterMap.Add(glyph.Character);
-				    var rectangle = new Rectangle(glyph.Subrect.X, glyph.Subrect.Y, glyph.Subrect.Width, glyph.Subrect.Height);
-                    var cropRect = new Rectangle(0, (int)(glyphs.Select(x => x.YOffset).Max() + glyph.YOffset), glyph.Subrect.Width, glyph.Subrect.Height);
-				    output.Glyphs.Add(rectangle);
-				    output.Cropping.Add(cropRect);
+				    var glyphPosition = new Rectangle(glyph.Subrect.X, glyph.Subrect.Y, glyph.Subrect.Width, glyph.Subrect.Height);
+                    var glyphCrop = new Rectangle(0, (int)(glyphs.Select(x => x.YOffset).Max() + glyph.YOffset), glyph.Subrect.Width, glyph.Subrect.Height);
+				    output.Glyphs.Add(glyphPosition);
+				    output.Cropping.Add(glyphCrop);
 //                    g.DrawRectangle(new Pen(System.Drawing.Color.Red), new System.Drawing.Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height));
 //                    g.DrawRectangle(new Pen(System.Drawing.Color.SaddleBrown), new System.Drawing.Rectangle(rectangle.X + cropRect.X, rectangle.Y + cropRect.Y, cropRect.Width, cropRect.Height));
                     
@@ -117,8 +124,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
 				var bitmapContent = new PixelBitmapContent<Color>(outputBitmap.Width, outputBitmap.Height);
 				bitmapContent.SetPixelData(outputBitmap.GetData());
 				output.Texture.Faces.Add(new MipmapChain(bitmapContent));
-
-                GraphicsUtil.CompressTexture(context.TargetProfile, output.Texture, context, false, false);
+                if (CompressFont)
+                    GraphicsUtil.CompressTexture(context.TargetProfile, output.Texture, context, false, false);
 			}
 			catch(Exception ex) {
 				context.Logger.LogImportantMessage("{0}", ex.ToString());

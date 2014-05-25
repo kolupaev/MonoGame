@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -54,12 +55,9 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
 					Glyphs = glyphList;
 
 					// Store the font height.
-					LineSpacing = 0;
-					foreach (var glyph in Glyphs) 
-					{
-                        LineSpacing = (glyph.Subrect.Height > LineSpacing) ? glyph.Subrect.Height : LineSpacing;
-					}
-                    LineSpacing = LineSpacing * 1.35f;
+				    LineSpacing = Glyphs.Max(q => q.Subrect.Height);
+                    
+                    LineSpacing = LineSpacing * 1.35f; // Unfortunately I have't found any other way to make linespacing consistent with XNA implementation.
 				}
 			} finally {
 				if (face != null)
