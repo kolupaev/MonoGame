@@ -1223,14 +1223,14 @@ namespace Microsoft.Xna.Framework.Graphics
             _d3dContext.Flush();
         }
         
-        private static GraphicsProfile PlatformGetHighestSupportedGraphicsProfile(GraphicsDevice graphicsDevice)
+        private static GraphicsProfile  PlatformGetHighestSupportedGraphicsProfile(GraphicsDevice graphicsDevice)
         {
             FeatureLevel featureLevel;
 
             if (graphicsDevice == null || graphicsDevice._d3dDevice == null)
                 featureLevel = SharpDX.Direct3D11.Device.GetSupportedFeatureLevel();
-            else
-                featureLevel = graphicsDevice._d3dDevice.FeatureLevel;
+            //else
+            //    featureLevel = graphicsDevice._d3dDevice.FeatureLevel; // For some reason this returns reach on the wp8 emulator, while SharpDX.Direct3D11.Device.GetSupportedFeatureLevel() returned HiDef previously, which causes exception
 
             GraphicsProfile graphicsProfile;
 
