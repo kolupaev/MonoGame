@@ -394,8 +394,8 @@ namespace Microsoft.Xna.Framework.Graphics
             internal set
             {
                 //check Profile
-                if(value > GraphicsDevice.GetHighestSupportedGraphicsProfile(this))
-                    throw new System.NotSupportedException(String.Format("Could not find a graphics device that supports the {0} profile", value.ToString()));
+                //if(value > GraphicsDevice.GetHighestSupportedGraphicsProfile(this))
+                //    throw new System.NotSupportedException(String.Format("Could not find a graphics device that supports the {0} profile", value.ToString()));
                 _graphicsProfile = value;
             }
         }
