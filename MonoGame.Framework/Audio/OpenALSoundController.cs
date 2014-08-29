@@ -99,7 +99,7 @@ namespace Microsoft.Xna.Framework.Audio
             }
             if (_device != IntPtr.Zero)
             {
-#if __ANDROID_16__
+#if ANDROID
                 // Attach activity event handlers so we can pause and resume all playing sounds
                 AndroidGameActivity.Paused += Activity_Paused;
                 AndroidGameActivity.Resumed += Activity_Resumed;
