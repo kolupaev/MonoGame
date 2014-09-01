@@ -307,8 +307,8 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <OutputPath><xsl:text>bin\</xsl:text><xsl:copy-of select="$assembly_name" /><xsl:text>\</xsl:text><xsl:copy-of select="$platform_path" /></OutputPath>
-    <IntermediateOutputPath><xsl:text>obj\</xsl:text><xsl:copy-of select="$platform_path" /></IntermediateOutputPath>
+                <OutputPath><xsl:text>bin_</xsl:text><xsl:copy-of select="$assembly_name" /><xsl:text>\</xsl:text><xsl:copy-of select="$platform_path" /></OutputPath>
+    <IntermediateOutputPath><xsl:text>obj_</xsl:text><xsl:copy-of select="$assembly_name" /><xsl:text>\</xsl:text><xsl:copy-of select="$platform_path" /></IntermediateOutputPath>
     <DocumentationFile><xsl:text>bin\</xsl:text><xsl:copy-of select="$platform_path" /><xsl:text>\</xsl:text><xsl:copy-of select="$assembly_name" /><xsl:text>.xml</xsl:text></DocumentationFile>
     <DefineConstants>
       <xsl:if test="$debug = 'true'">
