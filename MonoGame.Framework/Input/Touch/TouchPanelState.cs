@@ -224,12 +224,14 @@ namespace Microsoft.Xna.Framework.Input.Touch
 
         private void UpdateTouchScale()
         {
+			/*
             // Get the window size.
             var windowSize = new Vector2(Window.ClientBounds.Width, Window.ClientBounds.Height);
-
             // Recalculate the touch scale.
             _touchScale = new Vector2(  _displaySize.X / windowSize.X,
                                         _displaySize.Y / windowSize.Y);
+			*/
+			_touchScale = new Vector2 (1, 1);
         }
 
         /// <summary>
