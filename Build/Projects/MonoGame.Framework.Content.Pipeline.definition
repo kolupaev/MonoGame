@@ -329,7 +329,9 @@
     <Compile Include="Serialization\Compiler\SoundEffectContentWriter.cs" />
     <Compile Include="Serialization\Compiler\SpriteFontContentWriter.cs" />
     <Compile Include="Serialization\Compiler\StringWriter.cs" />
+    <Compile Include="Serialization\Compiler\TextureWriter.cs" />
     <Compile Include="Serialization\Compiler\Texture2DContentWriter.cs" />
+    <Compile Include="Serialization\Compiler\TextureCubeWriter.cs" />
     <Compile Include="Serialization\Compiler\TimeSpanWriter.cs" />
     <Compile Include="Serialization\Compiler\UInt16Writer.cs" />
     <Compile Include="Serialization\Compiler\UInt32Writer.cs" />
@@ -379,6 +381,7 @@
     <Compile Include="Serialization\Intermediate\Vector2Serializer.cs" />
     <Compile Include="Serialization\Intermediate\Vector3Serializer.cs" />
     <Compile Include="Serialization\Intermediate\Vector4Serializer.cs" />
+    <Compile Include="Serialization\Intermediate\TimeSpanSerializer.cs" />
 
 
     <!-- Microsoft.Xna.Framework.Content.Pipeline -->
@@ -469,6 +472,11 @@
     </None>
 
     <!-- Linux Additional Binaries -->
+    <None Include="..\ThirdParty\Dependencies\assimp\libassimp.so">
+      <Platforms>Linux</Platforms>
+      <Link>libassimp.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="..\ThirdParty\Dependencies\NVTT\Linux\libnvcore.so">
       <Platforms>Linux</Platforms>
       <Link>libnvcore.so</Link>
