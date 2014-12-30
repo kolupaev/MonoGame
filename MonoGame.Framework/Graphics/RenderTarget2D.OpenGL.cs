@@ -58,6 +58,7 @@ namespace Microsoft.Xna.Framework.Graphics
             {
                 GraphicsDevice.AddDisposeAction(() =>
                 {
+					if (this == null || this.GraphicsDevice == null) return;
                     this.GraphicsDevice.PlatformDeleteRenderTarget(this);
                 });
             }
